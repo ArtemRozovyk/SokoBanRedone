@@ -34,16 +34,8 @@ public class MonteurScene {
         return this;
     }
 
-    public MonteurScene setMoveEvent(Controleur controleur) {
-        event=new EventHandler<Event>() {
-            public void handle(Event event) {
-                //获取键码
-                KeyEvent ke = (KeyEvent) event;
-                //强转
-                KeyCode code = ke.getCode();
-                controleur.move(code);
-            }
-        };
+    public MonteurScene setMoveEvent(EventHandler<Event> move) {
+        event=move;
         return this;
     }
 
