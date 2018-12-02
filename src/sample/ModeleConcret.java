@@ -42,15 +42,7 @@ public class ModeleConcret implements Modele {
         return map;
     }
 
-    @Override
-    public int getX() {
-        return x;
-    }
 
-    @Override
-    public int getY() {
-        return y;
-    }
 
     public void move(KeyCode code) {
 
@@ -237,7 +229,4 @@ public class ModeleConcret implements Modele {
         return direction;
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
 }

@@ -17,12 +17,7 @@ public class FacadeModele {
         return modele.getEtat();
     }
 
-    public int getX() {
-        return modele.getX();
-    }
-    public int getY() {
-        return modele.getY();
-    }
+
     public String getDirection(){
         return modele.getDirection();
     }
