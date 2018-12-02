@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class IHMFX extends Application implements Observateur {
+
     VueIHMFX vue;
 
     public void actualise(){
@@ -31,16 +32,10 @@ public class IHMFX extends Application implements Observateur {
     public void start(Stage primaryStage) throws Exception{
         Controleur controleur = Controleur.getControleur();
         controleur.abonne(this);
-
         vue = new VueIHMFX(controleur);
         ControleurIHMFX controleurIHMFX = new ControleurIHMFX(controleur,vue);
-
-
-
         /* montage de la scene */
         MonteurScene monteurScene = new MonteurScene();
-
-
         Scene scene1 = monteurScene.
                 setCentre(vue.canvas).
                 ajoutRight(controleurIHMFX.reset).
@@ -48,9 +43,7 @@ public class IHMFX extends Application implements Observateur {
                 setLargeur(490).
                 setHauteur(400).
                 retourneScene();
-
         primaryStage.setScene(scene1);
-
         primaryStage.setTitle("Sokoban^");
         primaryStage.show();
     }
@@ -58,5 +51,6 @@ public class IHMFX extends Application implements Observateur {
     public void lance() {
         launch(new String[]{});
     }
+
 }
 

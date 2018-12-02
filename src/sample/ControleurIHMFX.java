@@ -16,6 +16,8 @@ public class ControleurIHMFX {
     ControleurIHMFX(Controleur controleur, VueIHMFX vue) {
         this.controleur = controleur;
         this.vue = vue;
+
+        //ICI
         event=new EventHandler<Event>() {
             public void handle(Event event) {
                 //获取键码
@@ -25,6 +27,7 @@ public class ControleurIHMFX {
                 controleur.move(code);
             }
         };
+
         reset = new Button("Reset");
         reset.setOnAction(new ActionReset());
     }

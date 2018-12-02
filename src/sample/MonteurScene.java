@@ -52,10 +52,8 @@ public class MonteurScene {
     }
 
     Scene retourneScene() {
-
         Scene scene = new Scene(root,largeur,hauteur);
         scene.setOnKeyPressed(event);
         return scene;
-
     }
 }
