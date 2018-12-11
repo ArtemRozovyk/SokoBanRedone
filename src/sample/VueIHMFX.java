@@ -20,7 +20,6 @@ public class VueIHMFX {
     public VueIHMFX(Controleur controleur) throws FileNotFoundException {
         commandeGetEtat = controleur.commandeGetEtat();
         commandeGetDirection=controleur.commandeGetDirection();
-
         dessine();
     }
 

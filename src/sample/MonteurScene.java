@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class MonteurScene {
     //ArrayList<Region> bas = new ArrayList<Region>();
     AnchorPane root=new AnchorPane();
+    GridPane gridPane;
     EventHandler<Event>event;
     int largeur = 800;
     int hauteur = 400;
@@ -39,7 +41,7 @@ public class MonteurScene {
         return this;
     }
 
-    public MonteurScene setCentre(Canvas node) {
+    public MonteurScene setCentre(Node node) {
         root.getChildren().add(node);
         return this;
     }
@@ -50,10 +52,18 @@ public class MonteurScene {
         root.getChildren().add(node);
         return this;
     }
+    public MonteurScene setNiveau(GridPane gridPane) {
+        this.gridPane=gridPane;
+        return this;
+    }
 
     Scene retourneScene() {
-        Scene scene = new Scene(root,largeur,hauteur);
+        Scene scene = new Scene(gridPane,largeur,hauteur);
+
         scene.setOnKeyPressed(event);
+
         return scene;
     }
+
+
 }

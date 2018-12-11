@@ -18,12 +18,14 @@ import javafx.stage.Stage;
 public class IHMFX extends Application implements Observateur {
 
     VueIHMFX vue;
+    VueLevel vueL;
 
     public void actualise(){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                vue.dessine();
+
+            vue.dessine();
             }
         });
     };
@@ -33,9 +35,12 @@ public class IHMFX extends Application implements Observateur {
         Controleur controleur = Controleur.getControleur();
         controleur.abonne(this);
         vue = new VueIHMFX(controleur);
-        ControleurIHMFX controleurIHMFX = new ControleurIHMFX(controleur,vue);
+        vueL=new VueLevel(controleur);
+
+        ControleurIHMFX controleurIHMFX = new ControleurIHMFX(controleur,vue,vueL);
         /* montage de la scene */
         MonteurScene monteurScene = new MonteurScene();
+
         Scene scene1 = monteurScene.
                 setCentre(vue.canvas).
                 ajoutRight(controleurIHMFX.reset).
@@ -43,9 +48,23 @@ public class IHMFX extends Application implements Observateur {
                 setLargeur(490).
                 setHauteur(400).
                 retourneScene();
+        //
         primaryStage.setScene(scene1);
+
         primaryStage.setTitle("Sokoban^");
         primaryStage.show();
+        monteurScene = new MonteurScene();
+        Scene scene2 = monteurScene.
+                setCentre(vueL.gridPane).
+                ajoutRight(controleurIHMFX.reset).
+                setMoveEvent(controleurIHMFX.event).
+                setLargeur(490).
+                setHauteur(400).
+                retourneScene();
+        Stage k=new Stage();
+        k.setScene(scene2);
+        k.show();
+
     }
 
     public void lance() {

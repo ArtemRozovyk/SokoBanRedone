@@ -10,13 +10,15 @@ import javafx.scene.input.KeyEvent;
 public class ControleurIHMFX {
     Controleur controleur;
     VueIHMFX vue;
+    VueLevel vueLevel;
     Button reset;
     EventHandler<Event>event;
 
-    ControleurIHMFX(Controleur controleur, VueIHMFX vue) {
+
+    ControleurIHMFX(Controleur controleur, VueIHMFX vue, VueLevel vueLevel) {
         this.controleur = controleur;
         this.vue = vue;
-
+        this.vueLevel=vueLevel;
         //ICI
         event=new EventHandler<Event>() {
             public void handle(Event event) {
@@ -27,6 +29,10 @@ public class ControleurIHMFX {
                 controleur.move(code);
             }
         };
+        for (int i = 0; i < 3; i++) {
+            //vueLevel.myButton[i].setOnAction();
+        }
+
 
         reset = new Button("Reset");
         reset.setOnAction(new ActionReset());
