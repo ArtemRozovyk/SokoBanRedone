@@ -2,6 +2,8 @@ package sample;
 
 import javafx.scene.input.KeyCode;
 
+import java.util.ArrayList;
+
 public class FacadeModele {
     ModeleConcret modele = new ModeleConcret();
 
@@ -13,13 +15,20 @@ public class FacadeModele {
         modele.reset();
     }
 
-    public int[][] getEtat() {
+    public String[][] getEtat() {
         return modele.getEtat();
     }
 
 
     public String getDirection(){
         return modele.getDirection();
+    }
+
+    public void chargerNiveau(int i){
+        modele.chargerNiveau(i);
+    }
+    public ArrayList<String[][]> getL(){
+        return modele.getL();
     }
 
 }

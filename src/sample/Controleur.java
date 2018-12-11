@@ -40,11 +40,15 @@ public class Controleur implements Sujet {
         facadeModele.reset();
         notifie();
     }
+    void chargerNiveau(int i){
+        facadeModele.chargerNiveau(i);
+        notifie();
 
+    }
     public CommandeTabInt commandeGetEtat() {
         return new CommandeTabInt() {
             @Override
-            public int[][] exec() {
+            public String[][] exec() {
                 return facadeModele.getEtat();
             }
         };
@@ -56,6 +60,14 @@ public class Controleur implements Sujet {
             @Override
             public String exec() {
                 return facadeModele.getDirection();
+            }
+        };
+    }
+    public CommandeGetL commandeGetL() {
+        return new CommandeGetL() {
+            @Override
+            public ArrayList<String[][]> exec() {
+                return facadeModele.getL();
             }
         };
     }

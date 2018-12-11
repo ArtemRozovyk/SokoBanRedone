@@ -12,6 +12,8 @@ public class ControleurIHMFX {
     VueIHMFX vue;
     VueLevel vueLevel;
     Button reset;
+    Button chose;
+
     EventHandler<Event>event;
 
 
@@ -26,6 +28,10 @@ public class ControleurIHMFX {
                 KeyEvent ke = (KeyEvent) event;
                 //强转
                 KeyCode code = ke.getCode();
+
+                switch (code){
+                    case UP:
+                }
                 controleur.move(code);
             }
         };
@@ -36,11 +42,22 @@ public class ControleurIHMFX {
 
         reset = new Button("Reset");
         reset.setOnAction(new ActionReset());
+        chose = new Button("Ok");
+        chose.setOnAction(new ActionChoose());
     }
 
     class ActionReset implements EventHandler<ActionEvent> {
         public void handle(ActionEvent event) {
             controleur.reset();
+        }
+
+    }
+    class ActionChoose implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) {
+            String value = (String) vueLevel.comboBox.getValue();
+            int i=Integer.parseInt(value.substring(value.length()-1));
+            controleur.chargerNiveau(i);
+            //charger niveaucontroleur.reset();
         }
 
     }

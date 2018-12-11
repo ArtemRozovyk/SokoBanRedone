@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -10,8 +11,8 @@ import java.io.FileNotFoundException;
 
 public class VueLevel {
     CommandeTabInt commandeGetEtat;
-    Button[] myButton;
-    GridPane gridPane = new GridPane();
+    CommandeGetL commandeGetL;
+    ComboBox comboBox;
 
     Image[] chameau = new Image[]{ new Image(new FileInputStream(
             "1.png"),80,80,false,false),
@@ -23,18 +24,18 @@ public class VueLevel {
 
     public VueLevel (Controleur controleur) throws FileNotFoundException {
         commandeGetEtat = controleur.commandeGetEtat();
-        myButton = new Button[commandeGetEtat.exec().length];
-        for (int i=0;i<commandeGetEtat.exec().length;i++) {
-            myButton[i] = new Button();
-            myButton[i].setMinSize(80,80);
-            gridPane.add(myButton[i],i,0);
+        commandeGetL=controleur.commandeGetL();
+        comboBox = new ComboBox();
+        for (int i = 1; i < commandeGetL.exec().size()+1; i++) {
+            comboBox.getItems().add("Choice "+i);
+
         }
-        dessine();
+
+
+
     }
 
-    public void dessine() {
-        for (int i=0;i<3;i++) {
-            myButton[i].setGraphic(new ImageView(chameau[i]));
-        }
-    }
+
+
+
 }
