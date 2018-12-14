@@ -44,7 +44,7 @@ public class IHMFX extends Application implements Observateur {
 
         Scene scene1 = monteurScene.
                 setCentre(vue.canvas).
-                ajoutRight(controleurIHMFX.reset, vueL.comboBox,controleurIHMFX.chose,controleurIHMFX.openMultipleButton).
+                ajoutRight(controleurIHMFX.reset, vueL.comboBox,controleurIHMFX.chose,controleurIHMFX.openMultipleButton,vueL.label).
                 setMoveEvent(controleurIHMFX.event).
                 setLargeur(850).
                 setHauteur(650).

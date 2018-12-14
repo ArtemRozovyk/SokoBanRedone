@@ -21,6 +21,8 @@ public class ControleurIHMFX {
     VueLevel vueLevel;
     Button reset;
     Button chose;
+    Button nextLevel;
+    Button prevLevel;
     final Button openMultipleButton = new Button("Charger niveaux...");
     Stage primaryStage;
 

@@ -2,6 +2,7 @@ package sample;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 
 import java.util.ArrayList;
@@ -11,8 +12,11 @@ public class VueLevel {
     ComboBox comboBox;
     ArrayList<String> authors;
     final FileChooser fileChooser = new FileChooser();
+    Label label ;
+
 
     public VueLevel (Controleur controleur)  {
+        label=new Label();
         commandeAuthors=controleur.commandeAuthors();
         comboBox = new ComboBox();
         authors=commandeAuthors.exec();

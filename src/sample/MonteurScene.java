@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -56,7 +57,7 @@ public class MonteurScene {
 
 
 
-    public MonteurScene ajoutRight(Region node, ComboBox comboBox, Button choose, Button openMultipleButton) {
+    public MonteurScene ajoutRight(Region node, ComboBox comboBox, Button choose, Button openMultipleButton, Label nameAuthor) {
 
         node.setFocusTraversable(false);
         comboBox.setFocusTraversable(false);
@@ -78,6 +79,10 @@ public class MonteurScene {
         AnchorPane.setBottomAnchor(openMultipleButton,20.0);
         AnchorPane.setRightAnchor(openMultipleButton,294.0);
         root.getChildren().add(openMultipleButton);
+
+        AnchorPane.setBottomAnchor(nameAuthor,20.0);
+        AnchorPane.setRightAnchor(nameAuthor,350.0);
+        root.getChildren().add(nameAuthor);
 
 
 
