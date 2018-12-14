@@ -17,6 +17,8 @@ public class Controleur implements Sujet {
     FacadeModele facadeModele;
     ArrayList<Observateur> observateurs = new ArrayList<Observateur>();
 
+
+
     private Controleur(FacadeModele facadeModele) {
         this.facadeModele = facadeModele;
     }
@@ -73,5 +75,9 @@ public class Controleur implements Sujet {
     }
 
 
-
+    public void AddLevel(String absolutePath) {
+        ArrayList<String [][]>added=facadeModele.lireFichier(absolutePath);
+        for (String[][] level : added)
+        facadeModele.AddLevel(level);
+    }
 }

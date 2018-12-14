@@ -2,10 +2,8 @@ package sample;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class VueIHMFX {
@@ -32,6 +30,7 @@ public class VueIHMFX {
             }
         }
     }
+
     public void dessine() {
         String [][] map = commandeGetEtat.exec();
         int width=map[0].length*50,height=map.length*50;

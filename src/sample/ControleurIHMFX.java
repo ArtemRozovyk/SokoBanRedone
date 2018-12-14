@@ -6,8 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
+
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -16,6 +15,7 @@ import java.util.List;
 
 public class ControleurIHMFX {
     Controleur controleur;
+
     VueIHMFX vue;
     VueLevel vueLevel;
     Button reset;
@@ -36,8 +36,6 @@ public class ControleurIHMFX {
             KeyEvent ke = (KeyEvent) event;
             //强转
             KeyCode code = ke.getCode();
-
-
             controleur.move(code);
         };
         reset = new Button("Reset");
@@ -64,7 +62,7 @@ public class ControleurIHMFX {
                     vueLevel.fileChooser.showOpenMultipleDialog(primaryStage);
             if (list != null) {
                 for (File file : list) {
-                    System.out.println(file.getAbsolutePath());
+                    controleur.AddLevel(file.getAbsolutePath());
                 }
             }
         }

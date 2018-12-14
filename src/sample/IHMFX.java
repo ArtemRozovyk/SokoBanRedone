@@ -34,6 +34,7 @@ public class IHMFX extends Application implements Observateur {
     public void start(Stage primaryStage) throws Exception{
         Controleur controleur = Controleur.getControleur();
         controleur.abonne(this);
+        controleur.chargerNiveau(1);
         vue = new VueIHMFX(controleur);
         vueL=new VueLevel(controleur);
 

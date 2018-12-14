@@ -2,27 +2,17 @@ package sample;
 
 
 import javafx.scene.input.KeyCode;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
 import javafx.scene.control.Alert;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
+
 public class ModeleConcret implements Modele {
     private static String [][] map;//游戏操作的地图
     private static String [][] map2;//游戏操作的地图
-    private static ArrayList<String[][]> levels=lect_fichier("lol.txt");
-    private static String direction = "bottom";//玩家朝向  默认向下
     private static int x=0;//玩家当前在数组中的坐标
     private static int y=0;//玩家当前在数组中的坐标
 
-    static {
-        chargerNiveau(1);
-        }
+
 
     public void f_alert_informationDialog(String p_header, String p_message){
         Alert _alert = new Alert(Alert.AlertType.INFORMATION);
@@ -47,31 +37,22 @@ public class ModeleConcret implements Modele {
         }
     }
 
-     public static  void  chargerNiveau(int k){
+     public void chargerNiveau(String [][]mapTmp){
 
-         String [][]mapTmp=levels.get(k);
          map2=new String[mapTmp.length][mapTmp[0].length];
          map=new String[mapTmp.length][mapTmp[0].length];
 
          for(int a=0;a<mapTmp.length;a++){
             for (int b=0;b<mapTmp[a].length;b++){
                 map2[a][b]=""+mapTmp[a][b];
-                map[a][b]=""+mapTmp[a][b];
-                if (mapTmp[a][b]!=null && mapTmp[a][b].equals("@")){
-                    x=a;
-                    y=b;
-                }
             }
-        }
+         }
+         reset();
 
     }
 
     public String [][] getEtat() {
         return map;
-    }
-
-    public ArrayList<String[][]> getL(){
-        return levels;
     }
 
     public  void afficher(){
@@ -83,61 +64,6 @@ public class ModeleConcret implements Modele {
         }
     }
 
-
-    public static ArrayList<String[][]> lect_fichier(String nom_fichier)  {
-            File file = new File(nom_fichier);
-            BufferedReader br1 = null;
-            try {
-                br1 = new BufferedReader(new FileReader(file));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            ArrayList<String [][]> levels = new ArrayList<>();
-            String str;
-
-            ArrayList<String> l = new ArrayList<>();
-
-            int max = 0;
-
-            while (true){
-                try {
-                    str = br1.readLine();
-                    if (str==null)break;
-                    if (str.charAt(0)==';'){
-                        //Création d'un nouveau noeud...
-                        String [][] aux = new String[l.size()][max];
-
-                        for (int i = 0; i < l.size(); i++) {
-
-                            String [] arrTest = l.get(i).split("");
-                            for (int j = 0; j < max; j++) {
-                                if(j<arrTest.length)
-                                aux[i][j]=arrTest[j];
-                                else
-                                    aux[i][j]="0";
-                            }
-
-                        }
-                        max=0;
-                        l = new ArrayList<>();
-                        levels.add(aux);
-                    }
-                    else {
-                        l.add(str);
-                        if (str.length()>max) max = str.length();
-                    }
-
-
-                }catch(Exception e)
-                {
-                    System.out.print("");
-                }
-            }
-
-            return levels;
-        }
-
     public void move(KeyCode code) {
         int f=0;
         int fb=0;
@@ -145,7 +71,6 @@ public class ModeleConcret implements Modele {
         switch (code) {
 
             case UP:
-                direction = "top";
                 //通道和目标点
                 if (map[x - 1][y].equals(" ")  || map[x - 1][y].equals(".") ) {
                     if(map[x-1][y].equals(".")){
@@ -200,7 +125,6 @@ public class ModeleConcret implements Modele {
                 }
                 break;
             case DOWN:
-                direction = "bottom";
                 //通道和目标点
                 if (map[x + 1][y].equals(" ") || map[x + 1][y].equals(".") ){
                     if( map[x + 1][y].equals(".")){
@@ -253,7 +177,7 @@ public class ModeleConcret implements Modele {
                 }
                 break;
             case LEFT:
-                direction = "left";
+
                 //通道和目标点
                 if (map[x][y - 1].equals(" " )|| map[x][y - 1].equals(".") ){
                     if(map[x][y - 1].equals(".")){
@@ -308,7 +232,6 @@ public class ModeleConcret implements Modele {
                 }
                 break;
             case RIGHT:
-                direction = "right";
                 //通道和目标点
                 if (map[x][y + 1].equals(" " )|| map[x][y + 1].equals(".")) {
                     if( map[x][y + 1].equals(".")){
@@ -382,8 +305,6 @@ public class ModeleConcret implements Modele {
             }
         }
 
-    public String getDirection() {
-        return direction;
-    }
+
 
 }
