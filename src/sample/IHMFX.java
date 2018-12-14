@@ -37,18 +37,19 @@ public class IHMFX extends Application implements Observateur {
         vue = new VueIHMFX(controleur);
         vueL=new VueLevel(controleur);
 
-        ControleurIHMFX controleurIHMFX = new ControleurIHMFX(controleur,vue,vueL);
+        ControleurIHMFX controleurIHMFX = new ControleurIHMFX(controleur,vue,vueL,primaryStage);
         /* montage de la scene */
         MonteurScene monteurScene = new MonteurScene();
 
         Scene scene1 = monteurScene.
                 setCentre(vue.canvas).
-                ajoutRight(controleurIHMFX.reset, vueL.comboBox,controleurIHMFX.chose).
+                ajoutRight(controleurIHMFX.reset, vueL.comboBox,controleurIHMFX.chose,controleurIHMFX.openMultipleButton).
                 setMoveEvent(controleurIHMFX.event).
-                setLargeur(800).
+                setLargeur(850).
                 setHauteur(650).
                 retourneScene();
         //
+
         primaryStage.setScene(scene1);
 
         primaryStage.setTitle("Sokoban^");

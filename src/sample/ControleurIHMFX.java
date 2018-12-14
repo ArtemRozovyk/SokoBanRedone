@@ -3,10 +3,16 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Popup;
+import javafx.stage.PopupWindow;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.util.List;
+
 
 public class ControleurIHMFX {
     Controleur controleur;
@@ -14,43 +20,57 @@ public class ControleurIHMFX {
     VueLevel vueLevel;
     Button reset;
     Button chose;
+    final Button openMultipleButton = new Button("Charger niveaux...");
+    Stage primaryStage;
 
     EventHandler<Event>event;
 
 
-    ControleurIHMFX(Controleur controleur, VueIHMFX vue, VueLevel vueLevel) {
+    ControleurIHMFX(Controleur controleur, VueIHMFX vue, VueLevel vueLevel, Stage primaryStage) {
         this.controleur = controleur;
         this.vue = vue;
         this.vueLevel=vueLevel;
-        //ICI
-        event=new EventHandler<Event>() {
-            public void handle(Event event) {
-                //获取键码
-                KeyEvent ke = (KeyEvent) event;
-                //强转
-                KeyCode code = ke.getCode();
+        this.primaryStage=primaryStage;
+        event= event -> {
+            //获取键码
+            KeyEvent ke = (KeyEvent) event;
+            //强转
+            KeyCode code = ke.getCode();
 
 
-                controleur.move(code);
-            }
+            controleur.move(code);
         };
-        for (int i = 0; i < 3; i++) {
-            //vueLevel.myButton[i].setOnAction();
-        }
-
-
         reset = new Button("Reset");
         reset.setOnAction(new ActionReset());
         chose = new Button("Ok");
         chose.setOnAction(new ActionChoose());
+        openMultipleButton.setOnAction(new ActionLoadFiles());
     }
+
+
+
 
     class ActionReset implements EventHandler<ActionEvent> {
         public void handle(ActionEvent event) {
+            vue.resetCanvas();
             controleur.reset();
         }
 
     }
+
+    class ActionLoadFiles implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) {
+            List<File> list =
+                    vueLevel.fileChooser.showOpenMultipleDialog(primaryStage);
+            if (list != null) {
+                for (File file : list) {
+                    System.out.println(file.getAbsolutePath());
+                }
+            }
+        }
+
+    }
+
     class ActionChoose implements EventHandler<ActionEvent> {
 
         public void handle(ActionEvent event) {
@@ -62,7 +82,6 @@ public class ControleurIHMFX {
                 i=Integer.parseInt(value.substring(value.length()-2));
             vue.resetCanvas();
             controleur.chargerNiveau(i);
-            //charger niveaucontroleur.reset();
         }
 
     }

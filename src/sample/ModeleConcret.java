@@ -15,7 +15,6 @@ import java.util.List;
 public class ModeleConcret implements Modele {
     private static String [][] map;//游戏操作的地图
     private static String [][] map2;//游戏操作的地图
-    private static String [][] map3;//map for reset
     private static ArrayList<String[][]> levels=lect_fichier("lol.txt");
     private static String direction = "bottom";//玩家朝向  默认向下
     private static int x=0;//玩家当前在数组中的坐标
@@ -48,25 +47,23 @@ public class ModeleConcret implements Modele {
         }
     }
 
-     public static   void   chargerNiveau(int k){
+     public static  void  chargerNiveau(int k){
 
-         map=levels.get(k);
-         map2 = new String[map.length][100] ;
-         map3= new String[map.length][100];
-        for(int a=0;a<map.length;a++){
-            for (int b=0;b<map[a].length;b++){
-                map2[a][b]=map[a][b];
-                map3[a][b]=map[a][b];
+         String [][]mapTmp=levels.get(k);
+         map2=new String[mapTmp.length][mapTmp[0].length];
+         map=new String[mapTmp.length][mapTmp[0].length];
+
+         for(int a=0;a<mapTmp.length;a++){
+            for (int b=0;b<mapTmp[a].length;b++){
+                map2[a][b]=""+mapTmp[a][b];
+                map[a][b]=""+mapTmp[a][b];
+                if (mapTmp[a][b]!=null && mapTmp[a][b].equals("@")){
+                    x=a;
+                    y=b;
+                }
             }
         }
-         for (int i = 0; i < map.length; i++) {
-             for (int j = 0; j <map[0].length ; j++) {
-                 if (map[i][j]!=null && map[i][j].equals("@")){
-                     x=i;
-                     y=j;
-                 }
-             }
-         }
+
     }
 
     public String [][] getEtat() {
@@ -85,6 +82,8 @@ public class ModeleConcret implements Modele {
             System.out.println();
         }
     }
+
+
     public static ArrayList<String[][]> lect_fichier(String nom_fichier)  {
             File file = new File(nom_fichier);
             BufferedReader br1 = null;
@@ -372,9 +371,13 @@ public class ModeleConcret implements Modele {
 
     @Override
     public void reset() {
-        for (int i = 0; i < map3.length; i++) {
-            for (int j = 0; j < map3[i].length; j++) {
-                map[i][j]=map3[i][j];
+        for (int i = 0; i < map2.length; i++) {
+            for (int j = 0; j < map2[i].length; j++) {
+                map[i][j]=""+map2[i][j];
+                if (map2[i][j]!=null && map2[i][j].equals("@")){
+                    x=i;
+                    y=j;
+                }
                 }
             }
         }

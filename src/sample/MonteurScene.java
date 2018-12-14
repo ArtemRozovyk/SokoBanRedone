@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.canvas.*;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class MonteurScene {
     AnchorPane root=new AnchorPane();
     EventHandler<Event>event;
+
     int largeur = 0;
     int hauteur = 0;
 
@@ -47,29 +49,35 @@ public class MonteurScene {
         return this;
     }
 
-    public MonteurScene ajoutRight(Region node,ComboBox comboBox,Button choose) {
+
+
+
+
+
+
+
+    public MonteurScene ajoutRight(Region node, ComboBox comboBox, Button choose, Button openMultipleButton) {
 
         node.setFocusTraversable(false);
         comboBox.setFocusTraversable(false);
         choose.setFocusTraversable(true);
-        comboBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                //
-            }
-        });
+        openMultipleButton.setFocusTraversable(false);
         AnchorPane.setBottomAnchor(node,10.0);
         AnchorPane.setRightAnchor(node,25.0);
         root.getChildren().add(node);
 
-        AnchorPane.setBottomAnchor(comboBox,20.0);
+        AnchorPane.setBottomAnchor(comboBox,50.0);
         AnchorPane.setRightAnchor(comboBox,320.0);
         root.getChildren().add(comboBox);
 
 
-        AnchorPane.setBottomAnchor(choose,20.0);
+        AnchorPane.setBottomAnchor(choose,50.0);
         AnchorPane.setRightAnchor(choose,250.0);
         root.getChildren().add(choose);
+
+        AnchorPane.setBottomAnchor(openMultipleButton,20.0);
+        AnchorPane.setRightAnchor(openMultipleButton,294.0);
+        root.getChildren().add(openMultipleButton);
 
 
 

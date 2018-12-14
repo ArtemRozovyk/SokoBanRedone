@@ -85,7 +85,7 @@ public class VueIHMFX {
                         g2d.drawImage(fBox,j*50,i*50,50,50);
                         break;
                     case "0":
-                        Image vide =new Image(getClass().getResource("/Sokoban_pack/PNG/WallRound_Black.png").toString());
+                        Image vide =new Image(getClass().getResource("/Sokoban_pack/PNG/White.png").toString());
                         g2d.drawImage(vide,j*50,i*50,50,50);
                         break;
                     default:
