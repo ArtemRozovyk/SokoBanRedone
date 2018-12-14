@@ -14,21 +14,12 @@ public class VueLevel {
     CommandeGetL commandeGetL;
     ComboBox comboBox;
 
-    Image[] chameau = new Image[]{ new Image(new FileInputStream(
-            "1.png"),80,80,false,false),
-            new Image(new FileInputStream(
-                    "2.png"),80,80,false,false),
-            new Image(new FileInputStream(
-                    "3.png"),80,80,false,false)};
-
-
     public VueLevel (Controleur controleur) throws FileNotFoundException {
         commandeGetEtat = controleur.commandeGetEtat();
         commandeGetL=controleur.commandeGetL();
         comboBox = new ComboBox();
         for (int i = 1; i < commandeGetL.exec().size()+1; i++) {
             comboBox.getItems().add("Choice "+i);
-
         }
 
 

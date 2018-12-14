@@ -3,6 +3,7 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -29,9 +30,7 @@ public class ControleurIHMFX {
                 //强转
                 KeyCode code = ke.getCode();
 
-                switch (code){
-                    case UP:
-                }
+
                 controleur.move(code);
             }
         };
@@ -53,9 +52,15 @@ public class ControleurIHMFX {
 
     }
     class ActionChoose implements EventHandler<ActionEvent> {
+
         public void handle(ActionEvent event) {
+            int i;
             String value = (String) vueLevel.comboBox.getValue();
-            int i=Integer.parseInt(value.substring(value.length()-1));
+            if(value.substring(value.length()-2).charAt(0)==' ')
+                i=Integer.parseInt(value.substring(value.length()-1));
+            else
+                i=Integer.parseInt(value.substring(value.length()-2));
+            vue.resetCanvas();
             controleur.chargerNiveau(i);
             //charger niveaucontroleur.reset();
         }

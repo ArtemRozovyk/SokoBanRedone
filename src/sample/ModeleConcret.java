@@ -1,53 +1,72 @@
 package sample;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
+
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
 
+import java.util.Arrays;
+import java.util.List;
 public class ModeleConcret implements Modele {
     private static String [][] map;//游戏操作的地图
     private static String [][] map2;//游戏操作的地图
+    private static String [][] map3;//map for reset
     private static ArrayList<String[][]> levels=lect_fichier("lol.txt");
     private static String direction = "bottom";//玩家朝向  默认向下
-    private static int x=4;//玩家当前在数组中的坐标
-    private static int y=2;//玩家当前在数组中的坐标
+    private static int x=0;//玩家当前在数组中的坐标
+    private static int y=0;//玩家当前在数组中的坐标
 
     static {
         chargerNiveau(1);
+        }
 
-            for (int j = 0; j < levels.get(1).length; j++) {
-                for (int k = 0; k < levels.get(1)[0].length; k++) {
-                    //System.out.print(levels.get(i)[j][k]);
-                    map2[j][k]=map[j][k];
+    public void f_alert_informationDialog(String p_header, String p_message){
+        Alert _alert = new Alert(Alert.AlertType.INFORMATION);
+        _alert.setTitle("win");
+        _alert.setHeaderText(p_header);
+        _alert.setContentText(p_message);
+        _alert.show();
+    }
+
+    private void win() {
+        boolean win = true;
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (map2[i][j].equals(".")&&!map[i][j].equals("$")) {
+                    win = false;
                 }
-                System.out.println();
             }
         }
 
-
+        if (win) {
+            f_alert_informationDialog("win","win");
+        }
+    }
 
      public static   void   chargerNiveau(int k){
-        map=levels.get(k);
-        map2=map.clone();
+
+         map=levels.get(k);
+         map2 = new String[map.length][100] ;
+         map3= new String[map.length][100];
+        for(int a=0;a<map.length;a++){
+            for (int b=0;b<map[a].length;b++){
+                map2[a][b]=map[a][b];
+                map3[a][b]=map[a][b];
+            }
+        }
          for (int i = 0; i < map.length; i++) {
              for (int j = 0; j <map[0].length ; j++) {
                  if (map[i][j]!=null && map[i][j].equals("@")){
                      x=i;
                      y=j;
-                     System.out.println(x+ " "+y);
                  }
              }
          }
-
     }
 
     public String [][] getEtat() {
@@ -58,7 +77,14 @@ public class ModeleConcret implements Modele {
         return levels;
     }
 
-
+    public  void afficher(){
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[0].length; j++) {
+                System.out.print(map[i][j]);
+            }
+            System.out.println();
+        }
+    }
     public static ArrayList<String[][]> lect_fichier(String nom_fichier)  {
             File file = new File(nom_fichier);
             BufferedReader br1 = null;
@@ -85,14 +111,13 @@ public class ModeleConcret implements Modele {
 
                         for (int i = 0; i < l.size(); i++) {
 
-
                             String [] arrTest = l.get(i).split("");
-                            for (int j = 0; j < arrTest.length; j++) {
+                            for (int j = 0; j < max; j++) {
+                                if(j<arrTest.length)
                                 aux[i][j]=arrTest[j];
+                                else
+                                    aux[i][j]="0";
                             }
-
-
-
 
                         }
                         max=0;
@@ -117,7 +142,7 @@ public class ModeleConcret implements Modele {
     public void move(KeyCode code) {
         int f=0;
         int fb=0;
-
+        afficher();
         switch (code) {
 
             case UP:
@@ -142,15 +167,15 @@ public class ModeleConcret implements Modele {
                     //4.记录玩家的当前坐标
                     x -= 1;
                     f=0;
-
+                    break;
                 }
                 //如果是箱子
-                if (map[x - 1][y].equals("$")) {
+                if (map[x - 1][y].equals("$")||map[x - 1][y].equals("*")) {
                     //继续判断箱子的上边
                     //如果是通道或目标点
-                    if ((y-2>0)&&map[x - 1 - 1][y].equals(" ") || map[x - 1 - 1][y].equals(".") ){
+                    if (map[x - 2][y].equals(" ") || map[x - 2][y].equals(".") ){
                         if(map[x - 1 - 1][y].equals(".")){
-                            fb=1;
+                            fb=0;
                         }
                         //移动玩家
                         if (map2[x][y].equals(".")) {
@@ -166,11 +191,12 @@ public class ModeleConcret implements Modele {
                         //1.将箱子当前的位子不需要还原
                         //3.移动箱子
                         if(fb==1){
-                            map[x - 1 - 1][y] ="*";
+                            map[x - 1][y] ="*";
                         }else {
-                            map[x - 1 - 1][y] = "$";
+                            map[x - 1][y] = "$";
                         }
                         fb=0;
+                        win();
                     }
                 }
                 break;
@@ -195,10 +221,9 @@ public class ModeleConcret implements Modele {
                     //4.记录玩家的当前坐标
                     x += 1;
                     f=0;
-
-                }
+                    break;                }
                 //如果是箱子
-                if (map[x + 1][y].equals("$")) {
+                if (map[x + 1][y].equals("$")||map[x + 1][y].equals("*")) {
                     //继续判断箱子的上边
                     //如果是通道或目标点
                     if ((x+2<map.length)&&map[x + 2][y].equals(" ") || map[x + 2][y].equals(".")) {
@@ -219,12 +244,12 @@ public class ModeleConcret implements Modele {
                         //1.将箱子当前的位子不需要还原
                         //3.移动箱子
                         if(fb==1){
-                            map[x + 1 + 1][y] = "*";
+                            map[x + 1 ][y] = "*";
                         }else {
-                            map[x + 1 + 1][y] = "$";
+                            map[x + 1 ][y] = "$";
                         }
                         fb=0;
-
+                        win();
                     }
                 }
                 break;
@@ -252,7 +277,7 @@ public class ModeleConcret implements Modele {
                     break;
                 }
                 //如果是箱子
-                if (map[x][y - 1].equals("$") ){
+                if (map[x][y - 1].equals("$")|| map[x][y - 1].equals("*")){
                     //继续判断箱子的上边
                     //如果是通道或目标点
                     if ((y-2>0)&&map[x][y - 1 - 1].equals(" " )|| map[x][y - 1 - 1].equals(".")) {
@@ -279,7 +304,7 @@ public class ModeleConcret implements Modele {
                         y -= 1;
                         fb=0;
                         //重画
-
+                        win();
                     }
                 }
                 break;
@@ -307,7 +332,7 @@ public class ModeleConcret implements Modele {
                     break;
                 }
                 //如果是箱子
-                if (map[x][y + 1].equals("$") ){
+                if (map[x][y + 1].equals("$")|| map[x][y + 1].equals("*")){
                     //继续判断箱子的上边
                     //如果是通道或目标点
                     if ((x+2<map.length)&&map[x][y + 1 + 1].equals(" " )|| map[x][y + 1 + 1].equals(".") ){
@@ -334,30 +359,25 @@ public class ModeleConcret implements Modele {
                         //4.记录玩家的当前坐标
                         y += 1;
                         fb=0;
-
+                        win();
                     }
                 }
                 break;
             default:
                 break;
         }
-    }
+        afficher();
 
+    }
 
     @Override
     public void reset() {
-        map = new String [][]{
-                {"#","#","#","#","#","#","#","#","#","#"},
-                {"#",".","$"," "," ","#",".","$"," ","#"},
-                {"#"," "," "," "," ","#","#","#"," ","#"},
-                {"#","#","#"," ","@"," "," "," "," ","#"},
-                {"#"," "," "," "," "," ","#","#","#","#"},
-                {"#",".","$"," "," "," "," ","$",".","#"},
-                {"#","#","#","#","#","#","#","#","#","#"}
-        };
-        x=3;
-        y=4;
-    }
+        for (int i = 0; i < map3.length; i++) {
+            for (int j = 0; j < map3[i].length; j++) {
+                map[i][j]=map3[i][j];
+                }
+            }
+        }
 
     public String getDirection() {
         return direction;

@@ -21,9 +21,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class MonteurScene {
-    //ArrayList<Region> bas = new ArrayList<Region>();
     AnchorPane root=new AnchorPane();
-    GridPane gridPane;
     EventHandler<Event>event;
     int largeur = 0;
     int hauteur = 0;
@@ -50,6 +48,16 @@ public class MonteurScene {
     }
 
     public MonteurScene ajoutRight(Region node,ComboBox comboBox,Button choose) {
+
+        node.setFocusTraversable(false);
+        comboBox.setFocusTraversable(false);
+        choose.setFocusTraversable(true);
+        comboBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                //
+            }
+        });
         AnchorPane.setBottomAnchor(node,10.0);
         AnchorPane.setRightAnchor(node,25.0);
         root.getChildren().add(node);
@@ -67,20 +75,12 @@ public class MonteurScene {
 
         return this;
     }
-    public MonteurScene setNiveau(GridPane gridPane) {
-        this.gridPane=gridPane;
-        return this;
-    }
+
 
     Scene retourneScene() {
         Scene scene;
-        if(gridPane!=null)
-            scene = new Scene(gridPane,largeur,hauteur);
-        else
-            scene= new Scene (root,largeur,hauteur);
-
+        scene= new Scene (root,largeur,hauteur);
         scene.setOnKeyPressed(event);
-
         return scene;
     }
 

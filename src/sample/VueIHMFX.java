@@ -12,10 +12,10 @@ public class VueIHMFX {
 
     CommandeTabInt commandeGetEtat;
     CommandeDirection commandeGetDirection;
-    Canvas canvas = new Canvas(600,450);
+    Canvas canvas = new Canvas(400,200);
     //通过画布获取画笔
-    GraphicsContext g2d = canvas.getGraphicsContext2D();
 
+    GraphicsContext g2d = canvas.getGraphicsContext2D();
 
     public VueIHMFX(Controleur controleur) throws FileNotFoundException {
         commandeGetEtat = controleur.commandeGetEtat();
@@ -23,9 +23,21 @@ public class VueIHMFX {
         dessine();
     }
 
-    public void dessine() {
-
+    public void resetCanvas(){
         String [][] map = commandeGetEtat.exec();
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                Image way1 =new Image(getClass().getResource("/Sokoban_pack/PNG/White.png").toString());
+                g2d.drawImage(way1,j*50,i*50,50,50);
+            }
+        }
+    }
+    public void dessine() {
+        String [][] map = commandeGetEtat.exec();
+        int width=map[0].length*50,height=map.length*50;
+        canvas.setHeight(height);
+        canvas.setWidth(width);
+
         String direction=commandeGetDirection.exec();
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
@@ -71,6 +83,10 @@ public class VueIHMFX {
                     case "*":
                         Image fBox =new Image(getClass().getResource("/Sokoban_pack/PNG/Crate_Red.png").toString());
                         g2d.drawImage(fBox,j*50,i*50,50,50);
+                        break;
+                    case "0":
+                        Image vide =new Image(getClass().getResource("/Sokoban_pack/PNG/WallRound_Black.png").toString());
+                        g2d.drawImage(vide,j*50,i*50,50,50);
                         break;
                     default:
                         break;
