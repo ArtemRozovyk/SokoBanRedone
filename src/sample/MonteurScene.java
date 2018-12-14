@@ -58,7 +58,7 @@ public class MonteurScene {
 
 
 
-    public MonteurScene ajoutRight(Region node, ComboBox comboBox, Button choose, Button openMultipleButton, Label nameAuthor) {
+    public MonteurScene ajoutRight(Region node, ComboBox comboBox, Button choose, Button openMultipleButton, Label nameAuthor,Button nexTL,Button preVL) {
 
         node.setFocusTraversable(false);
         comboBox.setFocusTraversable(false);
@@ -85,9 +85,17 @@ public class MonteurScene {
         nameAuthor.setBackground(new Background(new BackgroundFill(Color.CADETBLUE, new CornerRadii(2), new Insets(2))));
         nameAuthor.setFont(Font.font("AnjaliOldLipi", 24));
         System.out.println(javafx.scene.text.Font.getFamilies());
-        AnchorPane.setBottomAnchor(nameAuthor,50.0);
-        AnchorPane.setRightAnchor(nameAuthor,600.0);
+        AnchorPane.setBottomAnchor(nameAuthor,80.0);
+        AnchorPane.setRightAnchor(nameAuthor,50.0);
         root.getChildren().add(nameAuthor);
+
+        AnchorPane.setBottomAnchor(nexTL,80.0);
+        AnchorPane.setRightAnchor(nexTL,320.0);
+        root.getChildren().add(nexTL);
+
+        AnchorPane.setBottomAnchor(preVL,80.0);
+        AnchorPane.setRightAnchor(preVL,500.0);
+        root.getChildren().add(preVL);
 
 
 

@@ -89,6 +89,14 @@ public class Controleur implements Sujet {
             }
         };
     }
+    public CommandeCurrentLevelInt commandeCurrentLevelInt() {
+        return new CommandeCurrentLevelInt() {
+            @Override
+            public int exec() {
+                return facadeModele.getCurrentLevel();
+            }
+        };
+    }
 
 
 

@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.scene.input.KeyCode;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,10 +10,15 @@ import java.util.ArrayList;
 public class ModeleEnsLevels implements Modele {
     Modele modele;
     private static ArrayList<String[][]> levels;
+    int currentLevel;
+
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
 
     public ModeleEnsLevels (Modele modele){
         levels=lect_fichier("1234-MICROCOSMOS.txt");
-        this.modele =modele;
+        this.modele=modele;
     }
 
     public  ArrayList<String[][]> lect_fichier(String nom_fichier)  {
@@ -73,6 +77,8 @@ public class ModeleEnsLevels implements Modele {
     }
 
     public void chargerNiveau(int i){
+        currentLevel=i+1;
+        if(i<levels.size()&&i>=0)
         chargerNiveau(levels.get(i));
     }
 

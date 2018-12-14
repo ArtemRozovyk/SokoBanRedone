@@ -23,7 +23,7 @@ public class ControleurIHMFX {
     Button chose;
     Button nextLevel;
     Button prevLevel;
-    final Button openMultipleButton = new Button("Charger niveaux...");
+    Button openMultipleButton ;
     Stage primaryStage;
 
     EventHandler<Event>event;
@@ -41,15 +41,28 @@ public class ControleurIHMFX {
             KeyCode code = ke.getCode();
             controleur.move(code);
         };
+        chose = new Button("Ok");
+        nextLevel=new Button("NextLevel");
+        prevLevel=new Button("PrevLevel");
+        openMultipleButton = new Button("Charger niveaux...");
         reset = new Button("Reset");
         reset.setOnAction(new ActionReset());
-        chose = new Button("Ok");
         chose.setOnAction(new ActionChoose());
         openMultipleButton.setOnAction(new ActionLoadFiles());
+        nextLevel.setOnAction(new ActionNext());
+        prevLevel.setOnAction(new ActionPrev());
     }
 
 
 
+    public int getLevelNumber(String value){
+        int i;
+        if(value.substring(value.length()-2).charAt(0)==' ')
+            i=Integer.parseInt(value.substring(value.length()-1));
+        else
+            i=Integer.parseInt(value.substring(value.length()-2));
+        return i;
+    }
 
     class ActionReset implements EventHandler<ActionEvent> {
         public void handle(ActionEvent event) {
@@ -58,7 +71,6 @@ public class ControleurIHMFX {
         }
 
     }
-
     class ActionLoadFiles implements EventHandler<ActionEvent> {
         public void handle(ActionEvent event) {
             List<File> list =
@@ -77,13 +89,36 @@ public class ControleurIHMFX {
         public void handle(ActionEvent event) {
             int i;
             String value = (String) vueLevel.comboBox.getValue();
+            i=getLevelNumber(value);
             vueLevel.label.setText(value);
-            if(value.substring(value.length()-2).charAt(0)==' ')
-                i=Integer.parseInt(value.substring(value.length()-1));
-            else
-                i=Integer.parseInt(value.substring(value.length()-2));
             vue.resetCanvas();
             controleur.chargerNiveau(i-1);
+
+        }
+
+    }
+    class ActionPrev implements EventHandler<ActionEvent> {
+
+        public void handle(ActionEvent event) {
+            int i;
+            String value =vueLevel.label.getText();
+            i=getLevelNumber(value);
+            if(i==1)return;
+            vue.resetCanvas();
+            controleur.chargerNiveau(i-2);
+            controleur.notifie();
+        }
+
+    }
+    class ActionNext implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) {
+            int i;
+            String value =vueLevel.label.getText();
+            i=getLevelNumber(value);
+            vue.resetCanvas();
+            controleur.chargerNiveau(i);
+            controleur.notifie();
+
         }
 
     }

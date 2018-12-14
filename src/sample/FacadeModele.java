@@ -33,11 +33,13 @@ public class FacadeModele {
        return modeleAuthorName.lect_fichier(nomFichier);
     }
 
-    public ArrayList<String[][]> getL() {
-        return modele.getL();
-    }
 
     public void AddLevel(String[][] added) {
         modele.AddLevel(added);
+    }
+
+
+    public int getCurrentLevel() {
+        return modele.getCurrentLevel();
     }
 }
