@@ -77,6 +77,7 @@ public class ControleurIHMFX {
         public void handle(ActionEvent event) {
             int i;
             String value = (String) vueLevel.comboBox.getValue();
+            vueLevel.label.setText(value);
             if(value.substring(value.length()-2).charAt(0)==' ')
                 i=Integer.parseInt(value.substring(value.length()-1));
             else

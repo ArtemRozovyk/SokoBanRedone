@@ -67,7 +67,6 @@ public class ModeleConcret implements Modele {
     public void move(KeyCode code) {
         int f=0;
         int fb=0;
-        afficher();
         switch (code) {
 
             case UP:

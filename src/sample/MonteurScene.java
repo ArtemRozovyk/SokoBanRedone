@@ -11,12 +11,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.canvas.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -77,11 +78,15 @@ public class MonteurScene {
         root.getChildren().add(choose);
 
         AnchorPane.setBottomAnchor(openMultipleButton,20.0);
-        AnchorPane.setRightAnchor(openMultipleButton,294.0);
+        AnchorPane.setRightAnchor(openMultipleButton,320.0);
         root.getChildren().add(openMultipleButton);
 
-        AnchorPane.setBottomAnchor(nameAuthor,20.0);
-        AnchorPane.setRightAnchor(nameAuthor,350.0);
+        nameAuthor.setText("MICROCOSMOS 1");
+        nameAuthor.setBackground(new Background(new BackgroundFill(Color.CADETBLUE, new CornerRadii(2), new Insets(2))));
+        nameAuthor.setFont(Font.font("AnjaliOldLipi", 24));
+        System.out.println(javafx.scene.text.Font.getFamilies());
+        AnchorPane.setBottomAnchor(nameAuthor,50.0);
+        AnchorPane.setRightAnchor(nameAuthor,600.0);
         root.getChildren().add(nameAuthor);
 
 
