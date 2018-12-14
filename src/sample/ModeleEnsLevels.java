@@ -13,7 +13,7 @@ public class ModeleEnsLevels implements Modele {
     private static ArrayList<String[][]> levels;
 
     public ModeleEnsLevels (Modele modele){
-        levels=lect_fichier("lol.txt");
+        levels=lect_fichier("1234-MICROCOSMOS.txt");
         this.modele =modele;
     }
 
@@ -36,8 +36,9 @@ public class ModeleEnsLevels implements Modele {
         while (true){
             try {
                 str = br1.readLine();
-                if (str==null)break;
-                if (str.charAt(0)==';'){
+
+                if (str==null||str.charAt(0)==';'){
+                    if(l.size()<2)break;
                     //Création d'un nouveau noeud...
                     String [][] aux = new String[l.size()][max];
 

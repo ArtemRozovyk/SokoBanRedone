@@ -8,9 +8,10 @@ public class FacadeModele {
     Modele m=new ModeleConcret();
     ModeleEnsLevels modele = new ModeleEnsLevels(m);
     ModeleDirection modeleDirection =new ModeleDirection(m);
-    ModeleAuthorName modeleAuthorName= new ModeleAuthorName(m);
+    ModeleAuthorName modeleAuthorName= new ModeleAuthorName(modele);
+
     public void move(KeyCode keyCode) {
-        modele.move(keyCode);
+        modeleDirection.move(keyCode);
     }
 
     public void reset() {
@@ -21,7 +22,7 @@ public class FacadeModele {
         return modele.getEtat();
     }
 
-    public String getNameAuthor(){ return modeleAuthorName.nameAuthor ;}
+    public ArrayList<String> getNameAuthor(){ return modeleAuthorName.getNameAuthor() ;}
     public String getDirection(){
         return modeleDirection.getDirection();
     }
@@ -29,7 +30,7 @@ public class FacadeModele {
         modele.chargerNiveau(i);
     }
     public ArrayList<String[][]> lireFichier(String nomFichier){
-       return modele.lect_fichier(nomFichier);
+       return modeleAuthorName.lect_fichier(nomFichier);
     }
 
     public ArrayList<String[][]> getL() {

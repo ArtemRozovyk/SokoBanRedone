@@ -21,6 +21,8 @@ public class Controleur implements Sujet {
 
     private Controleur(FacadeModele facadeModele) {
         this.facadeModele = facadeModele;
+        chargerNiveau(0);
+
     }
 
     public void abonne(Observateur observateur) {
@@ -47,6 +49,19 @@ public class Controleur implements Sujet {
         notifie();
 
     }
+
+    public void AddLevel(String absolutePath) {
+        ArrayList<String [][]>added=facadeModele.lireFichier(absolutePath);
+        for (String[][] level : added)
+            facadeModele.AddLevel(level);
+        notifie();
+
+    }
+
+
+
+
+
     public CommandeTabInt commandeGetEtat() {
         return new CommandeTabInt() {
             @Override
@@ -65,19 +80,16 @@ public class Controleur implements Sujet {
             }
         };
     }
-    public CommandeGetL commandeGetL() {
-        return new CommandeGetL() {
+
+    public CommandeAuthors commandeAuthors() {
+        return new CommandeAuthors() {
             @Override
-            public ArrayList<String[][]> exec() {
-                return facadeModele.getL();
+            public ArrayList<String> exec() {
+                return facadeModele.getNameAuthor();
             }
         };
     }
 
 
-    public void AddLevel(String absolutePath) {
-        ArrayList<String [][]>added=facadeModele.lireFichier(absolutePath);
-        for (String[][] level : added)
-        facadeModele.AddLevel(level);
-    }
+
 }

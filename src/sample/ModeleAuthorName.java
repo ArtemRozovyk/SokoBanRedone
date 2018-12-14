@@ -2,18 +2,33 @@ package sample;
 
 import javafx.scene.input.KeyCode;
 
-public class ModeleAuthorName implements Modele {
-    String nameAuthor;
-    Modele modele;
 
-    public ModeleAuthorName(Modele modele) {
+import java.util.ArrayList;
+
+public class ModeleAuthorName implements Modele {
+    ArrayList<String> nameAuthor;
+    ModeleEnsLevels modele;
+
+    public ModeleAuthorName(ModeleEnsLevels modele) {
+        nameAuthor=new ArrayList<>();
+        for (int i = 1; i <41 ; i++) {
+            nameAuthor.add("MICROCOSMOS "+i);
+            
+        }
         this.modele = modele;
     }
 
+    public ArrayList<String[][]> lect_fichier(String nom_fichier)  {
+        String[]name=nom_fichier.split("/");
+        String toAdd=name[name.length-1].substring(5,name[name.length-1].length()-4);
+        nameAuthor.add(""+toAdd);
+        return modele.lect_fichier(nom_fichier);
+    }
 
-    public String getNameAuthor(){
+    public  ArrayList<String>  getNameAuthor(){
         return nameAuthor;
     }
+
     @Override
     public String[][] getEtat() {
         return modele.getEtat();

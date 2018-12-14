@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -79,7 +80,7 @@ public class ControleurIHMFX {
             else
                 i=Integer.parseInt(value.substring(value.length()-2));
             vue.resetCanvas();
-            controleur.chargerNiveau(i);
+            controleur.chargerNiveau(i-1);
         }
 
     }

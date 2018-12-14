@@ -3,7 +3,7 @@ package sample;
 import javafx.scene.input.KeyCode;
 
 public class ModeleDirection implements Modele {
-    String direction= "bottom";;
+    String direction= "bottom";
     Modele modele;
 
 

@@ -294,16 +294,20 @@ public class ModeleConcret implements Modele {
 
     @Override
     public void reset() {
+
         for (int i = 0; i < map2.length; i++) {
             for (int j = 0; j < map2[i].length; j++) {
                 map[i][j]=""+map2[i][j];
-                if (map2[i][j]!=null && map2[i][j].equals("@")){
+                if (map2[i][j]!=null && (map2[i][j].equals("@")||map2[i][j].equals("+"))){
                     x=i;
                     y=j;
                 }
-                }
+
             }
-        }
+            }
+
+    }
+
 
 
 
