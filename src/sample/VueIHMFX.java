@@ -2,6 +2,7 @@ package sample;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 
 import java.io.FileNotFoundException;
@@ -21,6 +22,28 @@ public class VueIHMFX {
         dessine();
     }
 
+    public void f_alert_informationDialog(String p_header, String p_message){
+        Alert _alert = new Alert(Alert.AlertType.INFORMATION);
+        _alert.setTitle("win");
+        _alert.setHeaderText(p_header);
+        _alert.setContentText(p_message);
+        _alert.show();
+    }
+
+    private void win(String [][] map) {
+        boolean win = true;
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (!map[i][j].equals("$")) {
+                    win = false;
+                }
+            }
+        }
+
+        if (win) {
+            f_alert_informationDialog("win","win");
+        }
+    }
     public void resetCanvas(){
         String [][] map = commandeGetEtat.exec();
         for (int i = 0; i < map.length; i++) {
@@ -92,6 +115,7 @@ public class VueIHMFX {
                 }
             }
         }
+        win(map);
     }
 
 

@@ -14,34 +14,12 @@ public class ModeleConcret implements Modele {
 
 
 
-    public void f_alert_informationDialog(String p_header, String p_message){
-        Alert _alert = new Alert(Alert.AlertType.INFORMATION);
-        _alert.setTitle("win");
-        _alert.setHeaderText(p_header);
-        _alert.setContentText(p_message);
-        _alert.show();
-    }
 
-    private void win() {
-        boolean win = true;
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                if (map2[i][j].equals(".")&&!map[i][j].equals("$")) {
-                    win = false;
-                }
-            }
-        }
-
-        if (win) {
-            f_alert_informationDialog("win","win");
-        }
-    }
 
      public void chargerNiveau(String [][]mapTmp){
 
          map2=new String[mapTmp.length][mapTmp[0].length];
          map=new String[mapTmp.length][mapTmp[0].length];
-
          for(int a=0;a<mapTmp.length;a++){
             for (int b=0;b<mapTmp[a].length;b++){
                 map2[a][b]=""+mapTmp[a][b];
@@ -119,7 +97,6 @@ public class ModeleConcret implements Modele {
                             map[x - 1][y] = "$";
                         }
                         fb=0;
-                        win();
                     }
                 }
                 break;
@@ -166,12 +143,11 @@ public class ModeleConcret implements Modele {
                         //1.将箱子当前的位子不需要还原
                         //3.移动箱子
                         if(fb==1){
-                            map[x + 1 ][y] = "*";
+                            map[x + 1][y] = "*";
                         }else {
-                            map[x + 1 ][y] = "$";
+                            map[x + 1][y] = "$";
                         }
                         fb=0;
-                        win();
                     }
                 }
                 break;
@@ -226,7 +202,6 @@ public class ModeleConcret implements Modele {
                         y -= 1;
                         fb=0;
                         //重画
-                        win();
                     }
                 }
                 break;
@@ -280,7 +255,6 @@ public class ModeleConcret implements Modele {
                         //4.记录玩家的当前坐标
                         y += 1;
                         fb=0;
-                        win();
                     }
                 }
                 break;

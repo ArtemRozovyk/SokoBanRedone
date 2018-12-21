@@ -9,7 +9,7 @@ public class FacadeModele {
     ModeleEnsLevels modele = new ModeleEnsLevels(m);
     ModeleDirection modeleDirection =new ModeleDirection(m);
     ModeleAuthorName modeleAuthorName= new ModeleAuthorName(modele);
-
+    ModeleListActions modeleListActions = new ModeleListActions(m);
     public void move(KeyCode keyCode) {
         modeleDirection.move(keyCode);
     }
@@ -23,19 +23,28 @@ public class FacadeModele {
     }
 
     public ArrayList<String> getNameAuthor(){ return modeleAuthorName.getNameAuthor() ;}
+
     public String getDirection(){
         return modeleDirection.getDirection();
     }
+
     public void chargerNiveau(int i){
         modele.chargerNiveau(i);
     }
+
     public ArrayList<String[][]> lireFichier(String nomFichier){
        return modeleAuthorName.lect_fichier(nomFichier);
     }
+    public void undo(){
+        modeleListActions.undo();
+    }public void redo(){
+        modeleListActions.redo();
+    }
 
-
-    public void AddLevel(String[][] added) {
-        modele.AddLevel(added);
+    public void AddLevel(String absolutePath) {
+        ArrayList<String [][]>added=lireFichier(absolutePath);
+        for (String[][] level : added)
+            modele.AddLevel(level);
     }
 
 
