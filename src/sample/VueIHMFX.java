@@ -30,20 +30,6 @@ public class VueIHMFX {
         _alert.show();
     }
 
-    private void win(String [][] map) {
-        boolean win = true;
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                if (!map[i][j].equals("$")) {
-                    win = false;
-                }
-            }
-        }
-
-        if (win) {
-            f_alert_informationDialog("win","win");
-        }
-    }
     public void resetCanvas(){
         String [][] map = commandeGetEtat.exec();
         for (int i = 0; i < map.length; i++) {

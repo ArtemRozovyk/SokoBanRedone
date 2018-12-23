@@ -158,23 +158,6 @@ public class ControleurIHMFX {
 
         }
 
-    }class ActionRedo implements EventHandler<ActionEvent> {
-        public void handle(ActionEvent event) {
-            int i;
-            String value =vueLevel.label.getText();
-            i=getLevelNumber(value);
-            vue.resetCanvas();
-            controleur.chargerNiveau(i);
-            controleur.notifie();
-
-        }
-
-    }class ActionUndo implements EventHandler<ActionEvent> {
-        public void handle(ActionEvent event) {
-
-
-        }
-
     }
 
 

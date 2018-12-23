@@ -9,9 +9,7 @@ public class ModeleConcret implements Modele {
 
 
 
-    public void f_alert_informationDialog(String p_header, String p_message){
-       
-    }
+
 
    
      public void chargerNiveau(String [][]mapTmp){

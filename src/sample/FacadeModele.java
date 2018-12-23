@@ -18,6 +18,7 @@ public class FacadeModele {
         modele.reset();
     }
 
+
     public String[][] getEtat() {
         return modele.getEtat();
     }

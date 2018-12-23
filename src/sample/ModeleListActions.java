@@ -26,8 +26,8 @@ public class ModeleListActions implements  Modele {
     }
 
     @Override
-    public void move(KeyCode code) {
-        m.move(code);
+    public String move(String code) {
+        return m.move(code);
     }
 
     @Override

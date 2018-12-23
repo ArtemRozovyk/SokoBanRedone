@@ -100,7 +100,9 @@ public class Controleur implements Sujet {
     }
 
     public void AddLevel(String absolutePath) {
-        facadeModele.AddLevel(absolutePath);
+        ArrayList<String [][]>added=facadeModele.lireFichier(absolutePath);
+        for (String[][] level : added)
+            facadeModele.AddLevel(level);
         notifie();
 
     }
@@ -116,12 +118,6 @@ public class Controleur implements Sujet {
                 return facadeModele.getEtat();
             }
         };
-    }
-    public CommandeRedo commandeRedo() {
-        return new CommandeRedo(facadeModele) ;
-    }
-    public CommandeUndo commandeUndo() {
-        return new CommandeUndo(facadeModele) ;
     }
 
 
