@@ -1,11 +1,6 @@
 package sample;
 
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.control.Alert;
-
-import java.util.ArrayList;
-
 public class ModeleConcret implements Modele {
     private static String [][] map;//游戏操作的地图
     private static String [][] map2;//游戏操作的地图
@@ -14,12 +9,16 @@ public class ModeleConcret implements Modele {
 
 
 
+    public void f_alert_informationDialog(String p_header, String p_message){
+       
+    }
 
-
+   
      public void chargerNiveau(String [][]mapTmp){
 
          map2=new String[mapTmp.length][mapTmp[0].length];
          map=new String[mapTmp.length][mapTmp[0].length];
+
          for(int a=0;a<mapTmp.length;a++){
             for (int b=0;b<mapTmp[a].length;b++){
                 map2[a][b]=""+mapTmp[a][b];
@@ -36,18 +35,18 @@ public class ModeleConcret implements Modele {
     public  void afficher(){
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
-                System.out.print(map[i][j]);
+               // System.out.print(map[i][j]);
             }
-            System.out.println();
+           // System.out.println();
         }
     }
 
-    public void move(KeyCode code) {
+    public String move(String direction) {
         int f=0;
         int fb=0;
-        switch (code) {
-
-            case UP:
+        switch (direction) {
+        //TODO
+            case "u":
                 //通道和目标点
                 if (map[x - 1][y].equals(" ")  || map[x - 1][y].equals(".") ) {
                     if(map[x-1][y].equals(".")){
@@ -67,7 +66,6 @@ public class ModeleConcret implements Modele {
                     }
                     //4.记录玩家的当前坐标
                     x -= 1;
-                    f=0;
                     break;
                 }
                 //如果是箱子
@@ -96,11 +94,11 @@ public class ModeleConcret implements Modele {
                         }else {
                             map[x - 1][y] = "$";
                         }
-                        fb=0;
+
                     }
                 }
-                break;
-            case DOWN:
+               break;
+            case "d":
                 //通道和目标点
                 if (map[x + 1][y].equals(" ") || map[x + 1][y].equals(".") ){
                     if( map[x + 1][y].equals(".")){
@@ -119,7 +117,6 @@ public class ModeleConcret implements Modele {
                     }
                     //4.记录玩家的当前坐标
                     x += 1;
-                    f=0;
                     break;                }
                 //如果是箱子
                 if (map[x + 1][y].equals("$")||map[x + 1][y].equals("*")) {
@@ -143,15 +140,15 @@ public class ModeleConcret implements Modele {
                         //1.将箱子当前的位子不需要还原
                         //3.移动箱子
                         if(fb==1){
-                            map[x + 1][y] = "*";
+                            map[x + 1 ][y] = "*";
                         }else {
-                            map[x + 1][y] = "$";
+                            map[x + 1 ][y] = "$";
                         }
-                        fb=0;
+
                     }
                 }
                 break;
-            case LEFT:
+            case "l":
 
                 //通道和目标点
                 if (map[x][y - 1].equals(" " )|| map[x][y - 1].equals(".") ){
@@ -171,7 +168,6 @@ public class ModeleConcret implements Modele {
                     }
                     //4.记录玩家的当前坐标
                     y -= 1;
-                    f=0;
                     break;
                 }
                 //如果是箱子
@@ -200,12 +196,13 @@ public class ModeleConcret implements Modele {
                         }
                         //4.记录玩家的当前坐标
                         y -= 1;
-                        fb=0;
                         //重画
+
                     }
                 }
-                break;
-            case RIGHT:
+               break;
+
+            case "r":
                 //通道和目标点
                 if (map[x][y + 1].equals(" " )|| map[x][y + 1].equals(".")) {
                     if( map[x][y + 1].equals(".")){
@@ -254,15 +251,15 @@ public class ModeleConcret implements Modele {
                         }
                         //4.记录玩家的当前坐标
                         y += 1;
-                        fb=0;
+
                     }
                 }
                 break;
+
             default:
                 break;
         }
-        afficher();
-
+        return direction;
     }
 
     @Override

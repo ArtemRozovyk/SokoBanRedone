@@ -1,9 +1,7 @@
 package sample;
 
-import javafx.scene.input.KeyCode;
-
 public class ModeleDirection implements Modele {
-    String direction= "bottom";
+    String directionImage= "bottom";
     Modele modele;
 
 
@@ -12,7 +10,7 @@ public class ModeleDirection implements Modele {
     }
 
     public String getDirection(){
-        return direction;
+        return directionImage;
     }
     @Override
     public String[][] getEtat() {
@@ -25,22 +23,22 @@ public class ModeleDirection implements Modele {
     }
 
     @Override
-    public void move(KeyCode code) {
-        switch (code){
-            case UP:
-                direction = "top";
+    public String move(String direction) {
+        switch (direction){
+            case "d":
+                directionImage="bottom";
                 break;
-            case DOWN:
-                direction = "bottom";
+            case "u":
+                directionImage="top";
                 break;
-            case LEFT:
-                direction = "left";
+            case "r":
+                directionImage="right";
                 break;
-            case RIGHT:
-                direction = "right";
+            case "l":
+                directionImage="left";
                 break;
         }
-        modele.move(code);
+        return modele.move(direction);
     }
 
     @Override

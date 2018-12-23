@@ -58,7 +58,7 @@ public class MonteurScene {
 
 
 
-    public MonteurScene ajoutRight(Region node, ComboBox comboBox, Button choose, Button openMultipleButton, Label nameAuthor,Button nexTL,Button preVL) {
+    public MonteurScene ajoutRight(Region node, ComboBox comboBox, Button choose, Button openMultipleButton, Label nameAuthor,Button nexTL,Button preVL,Button undo,Button redo) {
 
         node.setFocusTraversable(false);
         comboBox.setFocusTraversable(false);
@@ -84,7 +84,6 @@ public class MonteurScene {
         nameAuthor.setText("MICROCOSMOS 1");
         nameAuthor.setBackground(new Background(new BackgroundFill(Color.CADETBLUE, new CornerRadii(2), new Insets(2))));
         nameAuthor.setFont(Font.font("AnjaliOldLipi", 24));
-        System.out.println(javafx.scene.text.Font.getFamilies());
         AnchorPane.setBottomAnchor(nameAuthor,80.0);
         AnchorPane.setRightAnchor(nameAuthor,50.0);
         root.getChildren().add(nameAuthor);
@@ -96,6 +95,14 @@ public class MonteurScene {
         AnchorPane.setBottomAnchor(preVL,80.0);
         AnchorPane.setRightAnchor(preVL,500.0);
         root.getChildren().add(preVL);
+
+        AnchorPane.setBottomAnchor(undo,120.0);
+        AnchorPane.setRightAnchor(undo,320.0);
+        root.getChildren().add(undo);
+
+        AnchorPane.setBottomAnchor(redo,120.0);
+        AnchorPane.setRightAnchor(redo,500.0);
+        root.getChildren().add(redo);
 
 
 

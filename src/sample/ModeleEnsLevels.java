@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.scene.input.KeyCode;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -95,8 +94,8 @@ public class ModeleEnsLevels implements Modele {
         modele.chargerNiveau(mapTmp);
     }
     @Override
-    public void move(KeyCode code) {
-            modele.move(code);
+    public String move(String direction) {
+           return modele.move(direction);
     }
     @Override
     public void reset() {

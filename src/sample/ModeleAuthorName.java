@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.scene.input.KeyCode;
-
 
 import java.util.ArrayList;
 
@@ -40,8 +38,8 @@ public class ModeleAuthorName implements Modele {
     }
 
     @Override
-    public void move(KeyCode code) {
-        modele.move(code);
+    public String move(String direction) {
+        return modele.move(direction);
     }
 
     @Override

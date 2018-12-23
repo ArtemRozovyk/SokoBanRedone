@@ -24,6 +24,8 @@ public class ControleurIHMFX {
     Button nextLevel;
     Button prevLevel;
     Button openMultipleButton ;
+    Button undo;
+    Button redo;
     Stage primaryStage;
 
     EventHandler<Event>event;
@@ -34,23 +36,44 @@ public class ControleurIHMFX {
         this.vue = vue;
         this.vueLevel=vueLevel;
         this.primaryStage=primaryStage;
+
         event= event -> {
             //获取键码
             KeyEvent ke = (KeyEvent) event;
             //强转
             KeyCode code = ke.getCode();
-            controleur.move(code);
+            String direction="";
+            switch (code){
+                case UP:
+                    direction = "u";
+                    break;
+                case DOWN:
+                    direction = "d";
+                    break;
+                case LEFT:
+                    direction = "l";
+                    break;
+                case RIGHT:
+                    direction = "r";
+                    break;
+            }
+            controleur.executeCommand(new CommandMove(controleur.facadeModele,direction));
         };
+
         chose = new Button("Ok");
         nextLevel=new Button("NextLevel");
         prevLevel=new Button("PrevLevel");
         openMultipleButton = new Button("Charger niveaux...");
         reset = new Button("Reset");
+        undo=new Button("Undo");
+        redo=new Button("Redo");
         reset.setOnAction(new ActionReset());
         chose.setOnAction(new ActionChoose());
         openMultipleButton.setOnAction(new ActionLoadFiles());
         nextLevel.setOnAction(new ActionNext());
         prevLevel.setOnAction(new ActionPrev());
+        undo.setOnAction(new ActionUndo());
+        redo.setOnAction(new ActionRedo());
     }
 
 
@@ -107,6 +130,20 @@ public class ControleurIHMFX {
             vue.resetCanvas();
             controleur.chargerNiveau(i-2);
             controleur.notifie();
+        }
+
+    }
+    class ActionUndo implements EventHandler<ActionEvent> {
+
+        public void handle(ActionEvent event) {
+            controleur.undo();
+        }
+
+    }
+    class ActionRedo implements EventHandler<ActionEvent> {
+
+        public void handle(ActionEvent event) {
+           controleur.redo();
         }
 
     }

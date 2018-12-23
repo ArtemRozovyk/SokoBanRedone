@@ -16,8 +16,52 @@ public class Controleur implements Sujet {
 
     FacadeModele facadeModele;
     ArrayList<Observateur> observateurs = new ArrayList<Observateur>();
+    ArrayList<Command> listMoves=new ArrayList<>();
+    int nextUndo=-1;
 
 
+
+    public void executeCommand(Command command){
+            this.trimHistoryList();
+            command.exec();
+            listMoves.add(command);
+            nextUndo++;
+            notifie();
+    }
+
+    public void undo(){
+        if (nextUndo<0)return;
+        Command command = listMoves.get(nextUndo);
+        command.undo();
+        nextUndo--;
+        notifie();
+    }
+
+    public void redo(){
+        if(nextUndo==listMoves.size()-1)return;
+        int itemToredo=nextUndo+1;
+        Command command = listMoves.get(itemToredo);
+        command.exec();
+        notifie();
+        nextUndo++;
+    }
+
+    public void trimHistoryList(){
+        if (listMoves.size()==0) return;
+
+        if(nextUndo==listMoves.size()-1)return;
+        for (int i = listMoves.size()-1; i >nextUndo ; i--) {
+            listMoves.remove(i);
+
+        }
+    }
+
+
+
+    public void move(String direction) {
+        facadeModele.move(direction);
+        notifie();
+    }
 
     private Controleur(FacadeModele facadeModele) {
         this.facadeModele = facadeModele;
@@ -35,15 +79,20 @@ public class Controleur implements Sujet {
             observateur.actualise();
     }
 
-    public void move(KeyCode keyCode) {
-        facadeModele.move(keyCode);
-        notifie();
-    }
+
+
+
+
+
+
 
     public void reset() {
         facadeModele.reset();
         notifie();
     }
+
+
+
     void chargerNiveau(int i){
         facadeModele.chargerNiveau(i);
         notifie();

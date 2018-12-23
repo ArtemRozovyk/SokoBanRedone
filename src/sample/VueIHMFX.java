@@ -16,7 +16,7 @@ public class VueIHMFX {
 
     GraphicsContext g2d = canvas.getGraphicsContext2D();
 
-    public VueIHMFX(Controleur controleur) throws FileNotFoundException {
+    public VueIHMFX(Controleur controleur)   {
         commandeGetEtat = controleur.commandeGetEtat();
         commandeGetDirection=controleur.commandeGetDirection();
         dessine();
@@ -52,6 +52,18 @@ public class VueIHMFX {
                 g2d.drawImage(way1,j*50,i*50,50,50);
             }
         }
+    }
+
+    private void win(String[][] state) {
+        for (int i = 0; i < state.length; i++)
+            for (int j = 0; j < state[i].length; j++)
+                if (state[i][j].equals("$"))
+                    return;
+        Alert _alert = new Alert(Alert.AlertType.INFORMATION);
+        _alert.setTitle("Da");
+        _alert.setHeaderText("We win  ");
+        _alert.setContentText("Yes!");
+        _alert.show();
     }
 
     public void dessine() {
