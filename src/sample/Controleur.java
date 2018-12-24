@@ -1,8 +1,16 @@
 package sample;
 
-import javafx.scene.input.KeyCode;
+
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Controleur implements Sujet {
     private static Controleur singleton;
@@ -14,6 +22,7 @@ public class Controleur implements Sujet {
         return singleton;
     }
 
+    Animateur animateur;
     FacadeModele facadeModele;
     ArrayList<Observateur> observateurs = new ArrayList<Observateur>();
     ArrayList<Command> listMoves=new ArrayList<>();
@@ -27,6 +36,7 @@ public class Controleur implements Sujet {
             listMoves.add(command);
             nextUndo++;
             notifie();
+
     }
 
     public void undo(){
@@ -39,12 +49,40 @@ public class Controleur implements Sujet {
 
     public void redo(){
         if(nextUndo==listMoves.size()-1)return;
-        int itemToredo=nextUndo+1;
-        Command command = listMoves.get(itemToredo);
+        int itemToRedo=nextUndo+1;
+        Command command = listMoves.get(itemToRedo);
         command.exec();
         notifie();
         nextUndo++;
     }
+
+
+
+    public void solve(){
+        reset();
+        String solution= facadeModele.solve();
+        if(solution.equals("No solution")){
+            System.out.println(solution);
+            return;
+        }
+        System.out.println(solution);
+        ArrayList<Command> listCommandSolution=new ArrayList<>();
+        for (int j = 0; j < solution.length(); j++) {
+            listCommandSolution.add(new CommandMove(facadeModele,solution.substring(j,j+1)));
+        }
+        for(Command command : listCommandSolution)
+                   listMoves.add(command);
+
+
+
+
+
+    }
+        public void replay(){
+            for (int i = 0; i < listMoves.size(); i++) {
+                undo();
+            }
+        }
 
     public void trimHistoryList(){
         if (listMoves.size()==0) return;
@@ -52,20 +90,13 @@ public class Controleur implements Sujet {
         if(nextUndo==listMoves.size()-1)return;
         for (int i = listMoves.size()-1; i >nextUndo ; i--) {
             listMoves.remove(i);
-
         }
     }
 
 
-
-    public void move(String direction) {
-        facadeModele.move(direction);
-        notifie();
-    }
-
     private Controleur(FacadeModele facadeModele) {
         this.facadeModele = facadeModele;
-        chargerNiveau(0);
+        chargerNiveau(2);
 
     }
 
@@ -81,17 +112,12 @@ public class Controleur implements Sujet {
 
 
 
-
-
-
-
-
     public void reset() {
         facadeModele.reset();
+        listMoves=new ArrayList<>();
+        nextUndo=-1;
         notifie();
     }
-
-
 
     void chargerNiveau(int i){
         facadeModele.chargerNiveau(i);
@@ -106,9 +132,6 @@ public class Controleur implements Sujet {
         notifie();
 
     }
-
-
-
 
 
     public CommandeTabInt commandeGetEtat() {

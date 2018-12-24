@@ -9,6 +9,7 @@ public class FacadeModele {
     ModeleEnsLevels modele = new ModeleEnsLevels(m);
     ModeleDirection modeleDirection =new ModeleDirection(m);
     ModeleAuthorName modeleAuthorName= new ModeleAuthorName(modele);
+    ModeleSolution modeleSolution= new ModeleSolution(modele);
 
     public String move(String direction) {
         return modeleDirection.move(direction);
@@ -33,7 +34,7 @@ public class FacadeModele {
     public ArrayList<String[][]> lireFichier(String nomFichier){
        return modeleAuthorName.lect_fichier(nomFichier);
     }
-
+    public String solve(){ return modeleSolution.resoudre();}
 
     public void AddLevel(String[][] added) {
         modele.AddLevel(added);

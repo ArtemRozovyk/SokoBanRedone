@@ -14,6 +14,9 @@ public class ModeleEnsLevels implements Modele {
     public int getCurrentLevel() {
         return currentLevel;
     }
+    public String[][] getCurrentLevelString() {
+        return levels.get(currentLevel-1);
+    }
 
     public ModeleEnsLevels (Modele modele){
         levels=lect_fichier("1234-MICROCOSMOS.txt");

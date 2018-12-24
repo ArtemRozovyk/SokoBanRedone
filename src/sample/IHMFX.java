@@ -25,14 +25,15 @@ public class IHMFX extends Application implements Observateur {
             @Override
             public void run() {
 
-            vue.dessine();
-            vueL.miseAjourListe();
+
+                vue.dessine();
+                vueL.miseAjourListe();
             }
         });
-    };
+    }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) {
         Controleur controleur = Controleur.getControleur();
         controleur.abonne(this);
         vue = new VueIHMFX(controleur);
@@ -45,7 +46,8 @@ public class IHMFX extends Application implements Observateur {
         Scene scene1 = monteurScene.
                 setCentre(vue.canvas).
                 ajoutRight(controleurIHMFX.reset, vueL.comboBox,controleurIHMFX.chose,
-                        controleurIHMFX.openMultipleButton,vueL.label,controleurIHMFX.nextLevel,controleurIHMFX.prevLevel,controleurIHMFX.undo,controleurIHMFX.redo).
+                        controleurIHMFX.openMultipleButton,vueL.label,controleurIHMFX.nextLevel,
+                        controleurIHMFX.prevLevel,controleurIHMFX.undo,controleurIHMFX.redo,controleurIHMFX.solve,controleurIHMFX.replay).
                 setMoveEvent(controleurIHMFX.event).
                 setLargeur(850).
                 setHauteur(650).

@@ -1,27 +1,19 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.canvas.*;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
-import java.awt.*;
-import java.util.ArrayList;
 
 public class MonteurScene {
     AnchorPane root=new AnchorPane();
@@ -58,7 +50,8 @@ public class MonteurScene {
 
 
 
-    public MonteurScene ajoutRight(Region node, ComboBox comboBox, Button choose, Button openMultipleButton, Label nameAuthor,Button nexTL,Button preVL,Button undo,Button redo) {
+    public MonteurScene ajoutRight(Region node, ComboBox comboBox,
+                                   Button choose, Button openMultipleButton, Label nameAuthor,Button nexTL,Button preVL,Button undo,Button redo,Button solve,Button replay) {
 
         node.setFocusTraversable(false);
         comboBox.setFocusTraversable(false);
@@ -81,7 +74,7 @@ public class MonteurScene {
         AnchorPane.setRightAnchor(openMultipleButton,320.0);
         root.getChildren().add(openMultipleButton);
 
-        nameAuthor.setText("MICROCOSMOS 1");
+        nameAuthor.setText("MICROCOSMOS 3");
         nameAuthor.setBackground(new Background(new BackgroundFill(Color.CADETBLUE, new CornerRadii(2), new Insets(2))));
         nameAuthor.setFont(Font.font("AnjaliOldLipi", 24));
         AnchorPane.setBottomAnchor(nameAuthor,80.0);
@@ -104,6 +97,14 @@ public class MonteurScene {
         AnchorPane.setRightAnchor(redo,500.0);
         root.getChildren().add(redo);
 
+        AnchorPane.setBottomAnchor(solve,120.0);
+        AnchorPane.setRightAnchor(solve,400.0);
+        root.getChildren().add(solve);
+
+        AnchorPane.setBottomAnchor(replay,150.0);
+        AnchorPane.setRightAnchor(replay,400.0);
+        root.getChildren().add(replay);
+
 
 
         return this;
@@ -113,6 +114,7 @@ public class MonteurScene {
     Scene retourneScene() {
         Scene scene;
         scene= new Scene (root,largeur,hauteur);
+
         scene.setOnKeyPressed(event);
         return scene;
     }

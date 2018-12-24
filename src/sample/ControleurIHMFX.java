@@ -10,13 +10,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class ControleurIHMFX {
     Controleur controleur;
-
+    Animateur animateur;
     VueIHMFX vue;
     VueLevel vueLevel;
     Button reset;
@@ -27,6 +26,8 @@ public class ControleurIHMFX {
     Button undo;
     Button redo;
     Stage primaryStage;
+    Button solve;
+    Button replay;
 
     EventHandler<Event>event;
 
@@ -36,6 +37,7 @@ public class ControleurIHMFX {
         this.vue = vue;
         this.vueLevel=vueLevel;
         this.primaryStage=primaryStage;
+        this.animateur=new Animateur(controleur);
 
         event= event -> {
             //获取键码
@@ -67,6 +69,8 @@ public class ControleurIHMFX {
         reset = new Button("Reset");
         undo=new Button("Undo");
         redo=new Button("Redo");
+        solve=new Button("Solve");
+        replay=new Button("Replay");
         reset.setOnAction(new ActionReset());
         chose.setOnAction(new ActionChoose());
         openMultipleButton.setOnAction(new ActionLoadFiles());
@@ -74,6 +78,8 @@ public class ControleurIHMFX {
         prevLevel.setOnAction(new ActionPrev());
         undo.setOnAction(new ActionUndo());
         redo.setOnAction(new ActionRedo());
+        solve.setOnAction(new ActionSolve());
+        replay.setOnAction(new ActionReplay());
     }
 
 
@@ -120,6 +126,16 @@ public class ControleurIHMFX {
         }
 
     }
+    class ActionReplay implements EventHandler<ActionEvent> {
+
+        public void handle(ActionEvent event) {
+           controleur.replay();
+           animateur=new Animateur(controleur);
+           animateur.start();
+
+        }
+
+    }
     class ActionPrev implements EventHandler<ActionEvent> {
 
         public void handle(ActionEvent event) {
@@ -144,6 +160,15 @@ public class ControleurIHMFX {
 
         public void handle(ActionEvent event) {
            controleur.redo();
+        }
+
+    }
+    class ActionSolve implements EventHandler<ActionEvent> {
+
+        public void handle(ActionEvent event) {
+            controleur.solve();
+            animateur.start();
+
         }
 
     }
